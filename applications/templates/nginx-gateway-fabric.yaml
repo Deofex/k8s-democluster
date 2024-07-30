@@ -8,7 +8,8 @@ spec:
   project: default
 
   source:
-    repoURL: "ghcr.io/nginxinc/charts/nginx-gateway-fabric"
+    repoURL: ghcr.io/nginxinc/charts
+    chart: nginx-gateway-fabric
     targetRevision: 1.3.0
     helm:
       values: |
