@@ -4,11 +4,10 @@ metadata:
   name: nginx-gateway-fabric
   namespace: argocd
 spec:
-  destination:
-    namespace: nginx-gateway
-    server: "https://kubernetes.default.svc"
+
+  project: default
+
   source:
-    path: applications
     repoURL: "ghcr.io/nginxinc/charts/nginx-gateway-fabric"
     targetRevision: 1.3.0
     helm:
@@ -26,8 +25,11 @@ spec:
               nodePort: 30443
               protocol: TCP
               name: https
-  sources: []
-  project: default
+
+  destination:
+    namespace: nginx-gateway
+    server: "https://kubernetes.default.svc"
+
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
