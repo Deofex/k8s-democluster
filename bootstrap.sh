@@ -26,7 +26,7 @@ kubectl apply -f argocd/init/masterapp.yaml
 openssl genrsa -out cert_key.pem 2048
 openssl req -new -key cert_key.pem -out cert_csr.pem -subj "/CN=argocd.local"
 openssl x509 -req -in cert_csr.pem -sha256 -days 365 -extensions v3_ca -signkey cert_key.pem -CAcreateserial -out cert_cert.pem
-kubectl create secret tls argocd-server-tls --key="cert_key.pem" --cert="cert_cert.pem" -n argocd
+kubectl create secret tls argocd-server-tls --key="cert_key.pem" --cert="cert_cert.pem" -n nginx-shared-gateway
 rm cert_key.pem  cert_cert.pem cert_csr.pem
 
 # Provide credentials to user
