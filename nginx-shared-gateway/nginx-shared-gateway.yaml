@@ -23,7 +23,7 @@ spec:
           - group: gateway.networking.k8s.io
             kind: HTTPRoute
         namespaces:
-          from: argocd
+          from: All
       tls:
         certificateRefs:
           - kind: Secret
