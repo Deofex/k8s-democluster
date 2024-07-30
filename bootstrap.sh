@@ -1,8 +1,6 @@
 #!/bin/bash
 HELM_CHART_VERSION=7.3.11
 
-kind delete cluster
-
 ## Install kind cluster
 cat <<EOF | kind create cluster --config=-
 kind: Cluster
