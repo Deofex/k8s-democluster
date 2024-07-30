@@ -7,7 +7,8 @@ spec:
   hostnames:
     - argocd.local
   parentRefs:
-    - name: argocd
+    - name: nginx-shared-gateway
+      namespace: nginx-shared-gateway
   rules:
     - backendRefs:
         - name: argocd-server
