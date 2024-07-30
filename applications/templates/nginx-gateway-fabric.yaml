@@ -1,20 +1,37 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nginx-gateway-fabric
+  name: argocd-application-bundle
   namespace: argocd
 spec:
-  project: default
-
-  source:
-    repoURL: https://github.com/nginxinc/nginx-gateway-fabric
-    targetRevision: v1.3.0
-    path: config/crd/gateway-api/standard
-
   destination:
-    server: https://kubernetes.default.svc
-
+    name: ""
+    namespace: nginx-gateway
+    server: "https://kubernetes.default.svc"
+  source:
+    path: applications
+    repoURL: "oci://ghcr.io/nginxinc/charts/nginx-gateway-fabric"
+    targetRevision: HEAD
+    helm:
+      values: |
+        service:
+          type: NodePort
+          ports:
+            - port: 80
+              targetPort: 80
+              nodePort: 30080
+              protocol: TCP
+              name: http
+            - port: 443
+              targetPort: 443
+              nodePort: 30443
+              protocol: TCP
+              name: https
+  sources: []
+  project: default
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true

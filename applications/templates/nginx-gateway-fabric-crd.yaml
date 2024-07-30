@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-gateway-fabric-crd
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/nginxinc/nginx-gateway-fabric
+    targetRevision: v1.3.0
+    path: config/crd/gateway-api/standard
+
+  destination:
+    server: https://kubernetes.default.svc
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
