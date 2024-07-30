@@ -10,6 +10,9 @@ spec:
     - name: nginx-shared-gateway
       namespace: nginx-shared-gateway
       sectionName: http
+    - name: nginx-shared-gateway
+      namespace: nginx-shared-gateway
+      sectionName: argocd-https
   rules:
     - backendRefs:
         - name: argocd-server
