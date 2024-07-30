@@ -10,7 +10,7 @@ spec:
     server: "https://kubernetes.default.svc"
   source:
     path: applications
-    repoURL: "oci://ghcr.io/nginxinc/charts/nginx-gateway-fabric"
+    repoURL: "ghcr.io/nginxinc/charts/nginx-gateway-fabric"
     targetRevision: HEAD
     helm:
       values: |
