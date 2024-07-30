@@ -8,6 +8,11 @@ spec:
     - name: http
       port: 80
       protocol: HTTP
+      allowedRoutes:
+        kinds:
+          - kind: HTTPRoute
+        namespaces:
+          from: All
     - hostname: argocd.local
       name: argocd-https
       port: 443
@@ -16,3 +21,8 @@ spec:
         certificateRefs:
           - kind: Secret
             name: argocd-server-tls
+            allowedRoutes:
+              kinds:
+                - kind: HTTPRoute
+              namespaces:
+                from: argocd
