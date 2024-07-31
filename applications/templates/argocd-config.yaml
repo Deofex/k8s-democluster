@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd-httproute
+  name: argocd-config
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: 'https://github.com/Deofex/k8s-democluster'
-    path: argocd/httproute
+    path: argocd/config
     targetRevision: HEAD
   destination:
     server: 'https://kubernetes.default.svc'
