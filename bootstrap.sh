@@ -23,6 +23,7 @@ kubectl apply -f argocd/init/repo.yaml
 kubectl apply -f argocd/init/masterapp.yaml
 
 # Create self signed certificate and add it to k8s, this will be used by the ingress controller
+kubectl create ns nginx-shared-gateway
 openssl genrsa -out cert_key.pem 2048
 openssl req -new -key cert_key.pem -out cert_csr.pem -subj "/CN=argocd.local"
 openssl x509 -req -in cert_csr.pem -sha256 -days 365 -extensions v3_ca -signkey cert_key.pem -CAcreateserial -out cert_cert.pem
