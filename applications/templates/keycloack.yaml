@@ -1,0 +1,141 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: keycloack
+  namespace: argocd
+spec:
+
+  project: default
+
+  source:
+    repoURL: registry-1.docker.io/bitnamicharts
+    chart: keycloak
+    targetRevision: 22.0.0
+    helm:
+      values: |
+        keycloakConfigCli:
+          enabled: true
+          configuration:
+            master.json: |
+              {
+                "realm" : "master",
+                "clients": [
+                  {
+                    "id": "79ebacc4-3076-4f27-b0e6-a346432cafc0",
+                    "clientId": "argocd",
+                    "name": "argoCD client",
+                    "description": "",
+                    "rootUrl": "https://argocd.local",
+                    "adminUrl": "https://argocd.local",
+                    "baseUrl": "/applications",
+                    "surrogateAuthRequired": false,
+                    "enabled": true,
+                    "alwaysDisplayInConsole": false,
+                    "clientAuthenticatorType": "client-secret",
+                    "redirectUris": [
+                      "https://argocd.local/auth/callback"
+                    ],
+                    "webOrigins": [
+                      "*"
+                    ],
+                    "notBefore": 0,
+                    "bearerOnly": false,
+                    "consentRequired": false,
+                    "standardFlowEnabled": true,
+                    "implicitFlowEnabled": false,
+                    "directAccessGrantsEnabled": true,
+                    "serviceAccountsEnabled": false,
+                    "publicClient": true,
+                    "frontchannelLogout": true,
+                    "protocol": "openid-connect",
+                    "attributes": {
+                      "oidc.ciba.grant.enabled": "false",
+                      "client.secret.creation.time": "1722428847",
+                      "backchannel.logout.session.required": "true",
+                      "post.logout.redirect.uris": "+",
+                      "display.on.consent.screen": "false",
+                      "oauth2.device.authorization.grant.enabled": "false",
+                      "use.jwks.url": "false",
+                      "backchannel.logout.revoke.offline.tokens": "false"
+                    },
+                    "authenticationFlowBindingOverrides": {},
+                    "fullScopeAllowed": true,
+                    "nodeReRegistrationTimeout": -1,
+                    "defaultClientScopes": [
+                      "web-origins",
+                      "acr",
+                      "roles",
+                      "profile",
+                      "groups",
+                      "basic",
+                      "email"
+                    ],
+                    "optionalClientScopes": [
+                      "address",
+                      "phone",
+                      "offline_access",
+                      "microprofile-jwt"
+                    ]
+                  }
+                ],
+                "clientScopes": [
+                  {
+                    "id": "c30c32d2-5bec-4d48-9e9c-9a2513d03ca5",
+                    "name": "groups",
+                    "description": "",
+                    "protocol": "openid-connect",
+                    "attributes": {
+                      "include.in.token.scope": "true",
+                      "display.on.consent.screen": "true",
+                      "gui.order": "",
+                      "consent.screen.text": ""
+                    },
+                    "protocolMappers": [
+                      {
+                        "id": "6abf205b-a194-4d83-b56b-040ab2f62b72",
+                        "name": "groups",
+                        "protocol": "openid-connect",
+                        "protocolMapper": "oidc-group-membership-mapper",
+                        "consentRequired": false,
+                        "config": {
+                          "full.path": "false",
+                          "introspection.token.claim": "true",
+                          "userinfo.token.claim": "true",
+                          "multivalued": "true",
+                          "id.token.claim": "true",
+                          "lightweight.claim": "false",
+                          "access.token.claim": "true",
+                          "claim.name": "groups"
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "groups": [
+                  {
+                    "name": "ArgoCDAdmins",
+                    "path": "/ArgoCDAdmins",
+                  }
+                ],
+                "defaultDefaultClientScopes": [
+                  "role_list",
+                  "profile",
+                  "email",
+                  "roles",
+                  "web-origins",
+                  "acr",
+                  "basic",
+                  "groups"
+                ]
+              }
+
+  destination:
+    namespace: keycloack
+    server: "https://kubernetes.default.svc"
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
