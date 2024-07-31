@@ -1,3 +1,10 @@
 configs:
   params:
     server.insecure: True
+  rbac:
+    policy.csv: |
+      p, role:customer, applications, get, applications/*, allow
+      p, role:customer, applications, create, applications/*, allow
+      p, role:customer, applications, update, applications/*, allow
+      p, role:customer, applications, delete, applications/*, allow
+      g, user, role:customer
