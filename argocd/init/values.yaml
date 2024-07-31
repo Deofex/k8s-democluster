@@ -7,4 +7,5 @@ configs:
       p, role:customer, applications, create, applications/*, allow
       p, role:customer, applications, update, applications/*, allow
       p, role:customer, applications, delete, applications/*, allow
-      g, user, role:customer
+      g, ArgoCDAdmins, role:admin
+      g, ArgoCDCustomers, role:admin

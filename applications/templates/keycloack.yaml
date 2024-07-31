@@ -115,6 +115,10 @@ spec:
                   {
                     "name": "ArgoCDAdmins",
                     "path": "/ArgoCDAdmins",
+                  },
+                  {
+                    "name": "ArgoCDCustomers",
+                    "path": "/ArgoCDCustomers",
                   }
                 ],
                 "defaultDefaultClientScopes": [
