@@ -27,5 +27,5 @@ spec:
 
   # Deny all namespaced-scoped resources from being created, except for Deployment and StatefulSet
   namespaceResourceWhitelist:
-    - group: "apps"
+    - group: "*"
       kind: "*"
