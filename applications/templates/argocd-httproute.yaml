@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/Deofex/k8s-democluster'
-    path: argocd/gateway
+    path: argocd/httproute
     targetRevision: HEAD
   destination:
     server: 'https://kubernetes.default.svc'
