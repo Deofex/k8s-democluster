@@ -1,0 +1,7 @@
+apiVersion: v2
+name: customerapplications
+description: All customer applications
+
+type: application
+
+version: 0.1.0
