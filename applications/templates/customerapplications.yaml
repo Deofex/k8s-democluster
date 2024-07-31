@@ -13,6 +13,7 @@ spec:
       valueFiles:
       - $values/apps/values.yaml
   - repoURL: 'https://github.com/Deofex/testrepo'
+    path: apps
     targetRevision: HEAD
     ref: values
   destination:
