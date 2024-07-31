@@ -7,13 +7,12 @@ spec:
   project: default
   sources:
   - repoURL: 'https://github.com/Deofex/k8s-democluster'
-    path: customerapplicatons
+    path: customerapplications
     targetRevision: HEAD
     helm:
       valueFiles:
       - $values/apps/values.yaml
   - repoURL: 'https://github.com/Deofex/testrepo'
-    path: apps
     targetRevision: HEAD
     ref: values
   destination:
