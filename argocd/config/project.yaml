@@ -13,3 +13,7 @@ spec:
   # Allow manifests to deploy from any Git repos
   sourceRepos:
     - "*"
+
+  destinations:
+    - namespace: "*"
+      server: https://kubernetes.default.svc
