@@ -14,9 +14,9 @@ spec:
     helm:
       values: |
         auth:
-          adminPassword:Welkom01
-        postgresql
-          postgresqlPassword:SuperSecurePassword01
+          adminPassword: Welkom01
+        postgresql:
+          postgresqlPassword: SuperSecurePassword01
         keycloakConfigCli:
           enabled: true
           configuration:
