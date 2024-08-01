@@ -47,10 +47,10 @@ kubectl patch secret argocd-secret   -n argocd \
   --type='json' -p='[{"op": "add", "path": "/data/accounts.user.tokens", "value": "bnVsbA=="}]'
 kubectl patch secret argocd-secret   -n argocd \
   --type='json' -p='[{"op": "add", "path": "/data/oidc.keycloak.clientSecret", "value": "z9lfNxP8nG0XnufpjqPCQ8vsGVkezjR2"}]'
+kubectl patch cm argocd-cm -n argocd --type merge -p '{"data":{"url":"https://argocd.local"}}'
 
 
 
 # Provide credentials to user
 echo "ARGO CD is accessible with the following credentials: \"admin\", password: \"$(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d)\""
-echo "Keycloack is accessible with the following credentials: \"admin\", password: \"$(kubectl get secret -n keycloack keycloack-keycloak -o jsonpath='{.data.admin-password}' | base64 -d)\""
 
