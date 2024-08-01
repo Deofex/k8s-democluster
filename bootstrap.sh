@@ -48,6 +48,7 @@ kubectl patch secret argocd-secret   -n argocd \
 kubectl patch secret argocd-secret   -n argocd \
   --type='json' -p='[{"op": "add", "path": "/data/oidc.keycloak.clientSecret", "value": "z9lfNxP8nG0XnufpjqPCQ8vsGVkezjR2"}]'
 kubectl patch cm argocd-cm -n argocd --type merge -p '{"data":{"url":"https://argocd.local"}}'
+kubectl rollout restart deployment argocd-server -n argocd
 
 # Apply new coredns config
 kubectl apply -f argocd/init/coredns-cm.yaml 
