@@ -5,8 +5,7 @@ metadata:
   namespace: keycloack
 spec:
   hostnames:
-    - app1.demo.local
-    - keycloack-keycloak.keycloack.svc.cluster.local
+    - usermanagement.local
   parentRefs:
     - name: nginx-shared-gateway
       namespace: nginx-shared-gateway

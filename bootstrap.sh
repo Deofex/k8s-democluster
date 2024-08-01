@@ -36,7 +36,7 @@ kubectl patch configmap argocd-cm -n argocd \
 kubectl patch configmap argocd-cm -n argocd --type merge -p '
 {
   "data": {
-    "oidc.config": "name: Keycloak\nissuer: http://keycloack-keycloak.keycloack.svc.cluster.local/realms/master\nclientID: argocd\nclientSecret: $oidc.keycloak.clientSecret\nrequestedScopes: [\"openid\", \"profile\", \"email\", \"groups\"]"
+    "oidc.config": "name: Keycloak\nissuer: http://usermanagement.local/realms/master\nclientID: argocd\nclientSecret: $oidc.keycloak.clientSecret\nrequestedScopes: [\"openid\", \"profile\", \"email\", \"groups\"]"
   }
 }'
 kubectl patch secret argocd-secret   -n argocd \
@@ -49,7 +49,9 @@ kubectl patch secret argocd-secret   -n argocd \
   --type='json' -p='[{"op": "add", "path": "/data/oidc.keycloak.clientSecret", "value": "z9lfNxP8nG0XnufpjqPCQ8vsGVkezjR2"}]'
 kubectl patch cm argocd-cm -n argocd --type merge -p '{"data":{"url":"https://argocd.local"}}'
 
-
+# Apply new coredns config
+kubectl apply -f argocd/init/coredns-cm.yaml 
+kubectl rollout restart deployment coredns -n kube-system
 
 # Provide credentials to user
 echo "ARGO CD is accessible with the following credentials: \"admin\", password: \"$(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d)\""
