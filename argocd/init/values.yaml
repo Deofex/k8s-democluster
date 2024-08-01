@@ -8,4 +8,4 @@ configs:
       p, role:customer, applications, update, applications/*, allow
       p, role:customer, applications, delete, applications/*, allow
       g, ArgoCDAdmins, role:admin
-      g, ArgoCDCustomers, role:admin
+      g, ArgoCDCustomers, role:customer
