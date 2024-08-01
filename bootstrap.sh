@@ -33,15 +33,24 @@ rm cert_key.pem  cert_cert.pem cert_csr.pem
 # Create user account with the password Welkom01:
 kubectl patch configmap argocd-cm -n argocd \
   --type='json' -p='[{"op": "add", "path": "/data/accounts.user", "value": "login"}]'
+kubectl patch configmap argocd-cm -n argocd --type merge -p '
+{
+  "data": {
+    "oidc.config": "name: Keycloak\nissuer: http://keycloack-keycloak.keycloack.svc.cluster.local/realms/master\nclientID: argocd\nclientSecret: $oidc.keycloak.clientSecret\nrequestedScopes: [\"openid\", \"profile\", \"email\", \"groups\"]"
+  }
+}'
 kubectl patch secret argocd-secret   -n argocd \
   --type='json' -p='[{"op": "add", "path": "/data/accounts.user.password", "value": "JDJhJDEwJFBxNGVrd2dyMTV5QjRSSlFZZkNvbi5CR1dlSXBINTBtNklYMVNkNjBrLnhrSmFScFZZVE1P"}]'
 kubectl patch secret argocd-secret   -n argocd \
   --type='json' -p='[{"op": "add", "path": "/data/accounts.user.passwordMtime", "value": "MjAyNC0wNy0zMVQxMDozNDoyM1o="}]'
 kubectl patch secret argocd-secret   -n argocd \
   --type='json' -p='[{"op": "add", "path": "/data/accounts.user.tokens", "value": "bnVsbA=="}]'
+kubectl patch secret argocd-secret   -n argocd \
+  --type='json' -p='[{"op": "add", "path": "/data/oidc.keycloak.clientSecret", "value": "z9lfNxP8nG0XnufpjqPCQ8vsGVkezjR2"}]'
 
 
 
 # Provide credentials to user
 echo "ARGO CD is accessible with the following credentials: \"admin\", password: \"$(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d)\""
+echo "Keycloack is accessible with the following credentials: \"admin\", password: \"$(kubectl get secret -n keycloack keycloack-keycloak -o jsonpath='{.data.admin-password}' | base64 -d)\""
 
